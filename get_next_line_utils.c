@@ -55,3 +55,11 @@ void	*ft_calloc(size_t count, size_t size)
 	ft_bzero(result, count * size);
 	return (result);
 }
+
+// strchr
+
+// strcpy
+
+// memmove
+
+// strlen without \0? quizas el read ya se ocupa de eso.

@@ -2,6 +2,12 @@
 
 ## Conceptos fundamentales
 
+
+
+### ¿distingue open al abrir un binario o un texto? 
+
+### read interpreta \0 como un EOF o son cosas diferentes
+
 ### ¿Qué hace read? 
 Devuelve un size_t y necesita que se le pase un fd, un void que es el buffer y un size_t nbyte que es el numero de bits que referenciar del objeto del filedescirtor al buffer. Entonces conceptos: fd que apunta a un objeto, buffer en el que mover los bytes, y nbytes el numero de bytes que mover…  y devuelve: el numero de bites que ha podido mover, si ya ha llegado al final del fichero devuelve 0, si ha habido un problema devuelve -1
 
@@ -10,10 +16,145 @@ https://www.geeksforgeeks.org/static-variables-in-c/
 
 si no tienen valor una variable estática se inicia a 0.
 
+Y necesito este background: https://www.geeksforgeeks.org/memory-layout-of-c-program/
+
 Cuando ponemos static en una función por ejemplo static char *read_from_file(fd): 
 The static keyword is about controlling access and visibility. It’s useful for keeping functions private to a file, preventing naming collisions in larger programs. However, since your current use case is entirely within the same file, the behavior of the two versions is identical.
 
 ## LLDB
+
+To set up LLDB for debugging your C project in a Linux environment while using Visual Studio Code (VS Code), here’s a detailed guide:
+
+### Step 1: Install LLDB
+
+1. **Open a terminal** and install LLDB by running:
+   ```bash
+   sudo apt-get update
+   sudo apt-get install lldb
+   ```
+   - Verify the installation by running:
+   ```bash
+   lldb --version
+   ```
+
+### Step 2: Install the Necessary VS Code Extensions
+
+To make debugging easier with LLDB in VS Code, you’ll need a couple of extensions:
+1. Open **Visual Studio Code**.
+2. Install the following extensions:
+   - **C/C++** (by Microsoft) – for IntelliSense, code navigation, and debugging.
+   - **CodeLLDB** (by Vadim Chugunov) – for LLDB integration.
+
+### Step 3: Create a `launch.json` File for Debugging
+
+Now you need to set up a configuration file in VS Code so you can run the debugger.
+
+1. Open your C project folder in VS Code.
+2. Press **Ctrl+Shift+P**, then type `Debug: Open launch.json` and select **C++ (GDB/LLDB)**.
+3. This will generate a `launch.json` file in the `.vscode` directory.
+
+Modify the `launch.json` to fit your project. Below is an example configuration tailored to your "get_next_line" project:
+
+```json
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "(lldb) Launch",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/get_next_line",  // Path to your executable
+      "args": [],  // You can add any command-line arguments here
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}",
+      "environment": [],
+      "externalConsole": false,
+      "MIMode": "lldb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ],
+      "preLaunchTask": "build",
+      "miDebuggerPath": "/usr/bin/lldb",  // Path to the lldb binary
+      "logging": {
+        "trace": true,
+        "traceResponse": true,
+        "engineLogging": true
+      },
+      "launchCompleteCommand": "exec-run",
+      "targetArchitecture": "x86_64"
+    }
+  ]
+}
+```
+
+### Step 4: Set Up the Build Task
+
+Now, you’ll need to set up a build task so that VS Code knows how to compile your project when debugging.
+
+1. Press **Ctrl+Shift+P** again, and type `Tasks: Configure Task`.
+2. Choose **Create tasks.json from template** and select **Others**.
+3. Modify the `tasks.json` to look something like this:
+
+```json
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build",
+      "type": "shell",
+      "command": "gcc",
+      "args": [
+        "-g",                      // Add debugging symbols
+        "main.c",
+        "get_next_line.c",
+        "get_next_line_utils.c",
+        "-o",
+        "get_next_line"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": ["$gcc"]
+    }
+  ]
+}
+```
+
+This `tasks.json` tells VS Code to run `gcc` to compile your project with debugging symbols (`-g` flag).
+
+### Step 5: Run and Debug
+
+1. **Build the project**: You can either use the VS Code terminal to manually compile, or run the task you set up with **Ctrl+Shift+B** to build using the `tasks.json` configuration.
+2. **Debug**: Press **F5** to start debugging. LLDB will launch and you can use breakpoints, step through the code, and inspect variables.
+
+### Step 6: Debugging in Terminal
+
+If you prefer debugging directly from the terminal using LLDB, follow these steps:
+
+1. **Compile your project** with debugging symbols:
+   ```bash
+   gcc -g main.c get_next_line.c get_next_line_utils.c -o get_next_line
+   ```
+
+2. **Start LLDB**:
+   ```bash
+   lldb ./get_next_line
+   ```
+
+3. **Set breakpoints** and run the program:
+   ```bash
+   (lldb) breakpoint set --name main
+   (lldb) run
+   ```
+
+You can now use LLDB commands like `step`, `next`, `print`, and `continue` to debug your code.
+
+Let me know if you need any further clarification or assistance with the setup!
 
 I'm glad you're enjoying using LLDB in the terminal! Here’s how you can set breakpoints in specific methods and print variable values during debugging:
 
