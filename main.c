@@ -24,7 +24,7 @@ int main(void)
         if (next_line == NULL)
             break ;
         count++;
-        printf("[%d]:%s\n\n", count, next_line); 
+        printf("\n\n[%d]:%s\n\n", count, next_line); 
         free(next_line);
         next_line = NULL;
     }
