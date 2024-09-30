@@ -3,8 +3,6 @@
 #include <fcntl.h>
 
 
-// TODO: 
-
 int main(void)
 {
   int    fd;
