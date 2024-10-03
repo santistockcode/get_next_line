@@ -16,113 +16,107 @@ void    print_newline_helper(char *buffer)
     }
 }
 
-
-void pprint(BufferInfo *info)
+void pprint(BufferInfo *info, char *buffer)
 {
 	printf("\n\n");
 	printf("The buffer says	:");
-	print_newline_helper(info->buffer);
+	print_newline_helper(buffer);
 	printf("\n");
-	printf("Next n at pos	: %d\n", info->next_n);
-	printf("Buffer length	: %d\n", info->buffer_len);
-	printf("Allocations		: %d\n", info->chorri);
-
+	printf("Next n at pos	: %d\n", info->r_next_n);
+	printf("Allocations	: %d\n", info->m_many);
 }
 
-void find_n(BufferInfo *info)
+int find_n(char *b_aux)
 {
-	int n_pos = 0;
-	while (n_pos < BUFFER_SIZE && ((*info).b_position)[n_pos] != '\n') {
+	char *aux;
+	int n_pos;
+
+	n_pos = 0;
+	aux = b_aux;
+	while (n_pos < BUFFER_SIZE && (aux[n_pos] != '\n')) {
     	n_pos++;
 	}
-	if ((info->b_position)[n_pos] == '\n')
-		info->next_n = info->buffer_len - (BUFFER_SIZE - n_pos);
+	if (aux[n_pos] == '\n')
+		return ft_strlen(b_aux) - (BUFFER_SIZE - n_pos);
+	return 0;
 }
 
-
-static char	*read_from_file(int fd)
+char *mmmove_bfff(char *bff)
 {
-	int	bytes_read;
-	// static char	*s_buffer;
-	static BufferInfo b_info;
-	char *line;
 	int counter_calloc; 
-	char *read_position;
 
-	b_info.next_n = 0;
-	b_info.buffer_len = 0;
-
+	ft_memmove(bff, bff + find_n(bff) + 1, ft_strlen(bff) - find_n(bff) - 1);
 	
-	read_position = ft_calloc ( BUFFER_SIZE + 1, sizeof(char));
-	b_info.buffer = read_position;
-	//b_info.b_position = b_info.buffer;
-	//b_info.next_n = -1;
-	b_info.chorri += 1;
-
-	b_info.fdescriptor = fd;
-	b_info.much_read = 0;
-	
-	//pprint(&b_info);
-
-
-	if (b_info.buffer == NULL)
-		return (NULL);
-	if (b_info.buffer_len > 0)
-		find_n(&b_info);
-	while (b_info.next_n <= 0)
+	counter_calloc = ft_strlen(bff) - find_n(bff) - 1;
+	while (counter_calloc < ft_strlen(bff))
 	{
-		// problema 3: how is that RESERVO MEMORIA pero luego LE METO mazo de cosas prefiero hacer cambio de variable
-		bytes_read = read(fd, b_info.buffer + b_info.buffer_len, BUFFER_SIZE);
-		if (bytes_read == 0)
-			return (free (b_info.buffer), NULL);
-		b_info.buffer_len += bytes_read;
-		b_info.b_position = b_info.buffer + b_info.buffer_len - bytes_read;
-		b_info.buffer[b_info.buffer_len] = '\0';
-		find_n(&b_info);
-		pprint(&b_info);
-	}
-	// GREAT: i found some n
-
-	// now take da line 
-	// problema 4: ¿he llegado al EOF? ¿si el EOF está a 3 caracteres y next_n ni siquiera está qué hacemos?
-
-	line = malloc(b_info.next_n + 1); 
-	b_info.chorri += 1;
-	if (!line) {
-		free (b_info.buffer);
-		return (free (line), NULL);
-	}
-	memmove(line, b_info.buffer, b_info.next_n + 1);
-
-	// now reordenate the buffa
-	memmove(b_info.buffer, b_info.b_position + 1, b_info.buffer_len - b_info.next_n - 1);
-	
-	// put 0 in all the rest of the bufffa
-	counter_calloc = b_info.buffer_len - b_info.next_n - 1;
-	while (counter_calloc < b_info.buffer_len)
-	{
-		b_info.buffer[counter_calloc] = '\0';
+		bff[counter_calloc] = '\0';
 		counter_calloc++;
 	}
 
-	// new length of the buffer
-	b_info.buffer_len -= (b_info.next_n + 1);
-	
-	// if I know everything about my_buffer can I manage it? (sacar una línea etc)
+	return (bff);
+}
 
-	// qué pasa con mi buffer si me pasan otro fd { BONUS }
-	// qué pasa con mi buffer la segunda vez que se llama al read etc
-	free(b_info.buffer);
-	b_info.chorri -= 1;
+char *extract_line(char *from_this_bff)
+{
+	BufferInfo b_info;
+	char *line;
+
+	line = malloc(find_n(from_this_bff) + 1); 
+	if (!line) {
+		free (from_this_bff);
+		return (free (line), NULL);
+	}
+	ft_memmove(line, from_this_bff, find_n(from_this_bff) + 1);
 	return (line);
 }
 
+static char	*read_until_n(int fd, char *bff)
+{
+	int	bytes_read;
+	char *line;
+	BufferInfo b_info;
+	char *b_aux;
+	char *aux;
+
+
+	b_aux = ft_calloc ( BUFFER_SIZE + 1, sizeof(char));
+	if (b_aux == NULL)
+		return (free (b_aux), NULL);
+	b_aux = bff;
+	if (b_aux)
+		b_info.r_next_n = find_n(b_aux);
+
+	b_info.m_many += 1;
+	bytes_read = 1;
+
+	while (b_info.r_next_n <= 0)
+	{
+		bytes_read = read(fd, b_aux + ft_strlen(b_aux), BUFFER_SIZE);
+		if (bytes_read == 0)
+			return (free (b_aux), NULL);
+		aux = b_aux + ft_strlen(b_aux) - bytes_read;
+		aux[ft_strlen(b_aux)] = '\0';
+		b_info.r_next_n = find_n(b_aux);
+		pprint(&b_info, b_aux);
+	}
+
+	return b_aux;
+	
+}
 
 char *get_next_line(int fd)
 {
 	char *line;
-	line = read_from_file(fd);
+	static char *j_bf = {0};
+	
+	if (fd < 0 || BUFFER_SIZE <= 0)
+        return (NULL);
+    j_bf = read_until_n(fd, j_bf);
+	if (!j_bf)
+        return (NULL);
+    line = extract_line(j_bf);
+	j_bf = mmmove_bfff(j_bf);
+	
 	return (line);
 }
-
-// If you reach EOF without finding a \n, return the remaining data as the last line.
