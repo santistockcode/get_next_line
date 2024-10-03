@@ -44,7 +44,6 @@ static char	*read_from_file(int fd)
 {
 	int	bytes_read;
 	// static char	*s_buffer;
-	static int count = 1;
 	static BufferInfo b_info;
 	char *line;
 	int counter_calloc; 

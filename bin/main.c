@@ -10,7 +10,7 @@ int main(void)
   int  count;
 
     count = 0;
-    fd = open("example.txt", O_RDONLY);
+    fd = open("../file-examples/1.txt", O_RDONLY);
     if (fd == -1)
     {
         printf("Error opening da thing");

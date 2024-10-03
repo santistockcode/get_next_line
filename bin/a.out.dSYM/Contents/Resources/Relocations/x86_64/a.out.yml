@@ -1,0 +1,18 @@
+---
+triple:          'x86_64-apple-darwin'
+binary-path:     a.out
+relocations:
+  - { offsetInCU: 0x26, offset: 0x26, size: 0x8, addend: 0x0, symName: _print_newline_helper, symObjAddr: 0x0, symBinAddr: 0x1000038E0, symSize: 0x90 }
+  - { offsetInCU: 0x41, offset: 0x41, size: 0x8, addend: 0x0, symName: _read_from_file, symObjAddr: 0x1E0, symBinAddr: 0x100003AC0, symSize: 0x271 }
+  - { offsetInCU: 0x66, offset: 0x66, size: 0x8, addend: 0x0, symName: _read_from_file.b_info, symObjAddr: 0xF98, symBinAddr: 0x100008000, symSize: 0x0 }
+  - { offsetInCU: 0x126, offset: 0x126, size: 0x8, addend: 0x0, symName: _print_newline_helper, symObjAddr: 0x0, symBinAddr: 0x1000038E0, symSize: 0x90 }
+  - { offsetInCU: 0x14A, offset: 0x14A, size: 0x8, addend: 0x0, symName: _pprint, symObjAddr: 0x90, symBinAddr: 0x100003970, symSize: 0x90 }
+  - { offsetInCU: 0x16E, offset: 0x16E, size: 0x8, addend: 0x0, symName: _find_n, symObjAddr: 0x120, symBinAddr: 0x100003A00, symSize: 0x90 }
+  - { offsetInCU: 0x1A0, offset: 0x1A0, size: 0x8, addend: 0x0, symName: _get_next_line, symObjAddr: 0x1B0, symBinAddr: 0x100003A90, symSize: 0x30 }
+  - { offsetInCU: 0x26, offset: 0x201, size: 0x8, addend: 0x0, symName: _ft_memset, symObjAddr: 0x0, symBinAddr: 0x100003D40, symSize: 0x60 }
+  - { offsetInCU: 0x3B, offset: 0x216, size: 0x8, addend: 0x0, symName: _ft_memset, symObjAddr: 0x0, symBinAddr: 0x100003D40, symSize: 0x60 }
+  - { offsetInCU: 0x9B, offset: 0x276, size: 0x8, addend: 0x0, symName: _ft_bzero, symObjAddr: 0x60, symBinAddr: 0x100003DA0, symSize: 0x30 }
+  - { offsetInCU: 0xCD, offset: 0x2A8, size: 0x8, addend: 0x0, symName: _ft_calloc, symObjAddr: 0x90, symBinAddr: 0x100003DD0, symSize: 0x5E }
+  - { offsetInCU: 0x26, offset: 0x330, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x0, symBinAddr: 0x100003E30, symSize: 0xBA }
+  - { offsetInCU: 0x41, offset: 0x34B, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x0, symBinAddr: 0x100003E30, symSize: 0xBA }
+...
