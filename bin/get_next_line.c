@@ -38,7 +38,7 @@ int find_n(char *b_aux)
 	}
 	if (aux[n_pos] == '\n')
 		return ft_strlen(b_aux) - (BUFFER_SIZE - n_pos);
-	return 0;
+	return (-1);
 }
 
 char *mmmove_bfff(char *bff)
@@ -80,14 +80,15 @@ static char	*read_until_n(int fd, char *bff)
 {
 	int	bytes_read;
 	BufferInfo b_info;
+	char 	*paso;
 	char *b_aux;
 	char *aux;
 
 	initialize_b_info(&b_info);
-	b_aux = malloc ( (BUFFER_SIZE + 1) * sizeof(char));
-	if (b_aux == NULL)
-		return (free (b_aux), NULL);
-	b_aux = bff;
+	paso = ft_calloc ( BUFFER_SIZE + 1, sizeof(char));
+	if (paso == NULL)
+		return (free (paso), NULL);
+	b_aux = paso;
 	if (b_aux)
 		b_info.r_next_n = find_n(b_aux);
 
@@ -104,6 +105,8 @@ static char	*read_until_n(int fd, char *bff)
 		b_info.r_next_n = find_n(b_aux);
 		pprint(&b_info, b_aux);
 	}
+	paso = bff;
+	free(paso);
 
 	return b_aux;
 	
