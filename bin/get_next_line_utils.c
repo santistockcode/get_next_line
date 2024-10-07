@@ -1,14 +1,33 @@
 # include "get_next_line.h"
 
-static void	move_right(unsigned char *b, unsigned char *o, size_t l)
+//ft_strchr			********************************************************************************
+char	*ft_strchr(const char *s, int c)
 {
-	while (l > 0)
+	char	paso;
+
+	if (*s == '\0' && c == '\0')
+		return ((char *)s);
+	paso = (char) c;
+	while (*s != paso && *s)
 	{
-		b[l - 1] = o[l - 1];
-		l--;
+		s++;
+	}
+	if (*s == paso)
+	{
+		return ((char *)s);
+	}
+	else
+	{
+		return (NULL);
 	}
 }
+//ft_strjoin		********************************************************************************
 
+//ft_substr			********************************************************************************
+
+//ft_strdup			********************************************************************************
+
+// ft_strlen		********************************************************************************
 size_t	ft_strlen(const char *s)
 {
 	size_t	c;
@@ -21,7 +40,15 @@ size_t	ft_strlen(const char *s)
 	return (c);
 }
 
-
+// ft_memmove		********************************************************************************
+static void	move_right(unsigned char *b, unsigned char *o, size_t l)
+{
+	while (l > 0)
+	{
+		b[l - 1] = o[l - 1];
+		l--;
+	}
+}
 void	*ft_memmove(void *dst, const void *src, size_t len)
 {
 	unsigned char	*bufer;
@@ -48,6 +75,7 @@ void	*ft_memmove(void *dst, const void *src, size_t len)
 	return (dst);
 }
 
+// MEMESET + CALLOC	********************************************************************************
 void	*ft_memset(void *b, int c, size_t len)
 {
 	size_t	i;
@@ -62,12 +90,10 @@ void	*ft_memset(void *b, int c, size_t len)
 	}
 	return (b);
 }
-void	ft_bzero(void *s, size_t n)
-{
-	ft_memset(s, '\0', n);
-}
-
-
+// void	ft_bzero(void *s, size_t n)
+// {
+// 	ft_memset(s, '\0', n);
+// }
 void	*ft_calloc(size_t count, size_t size)
 {
 	void	*result;
@@ -75,6 +101,8 @@ void	*ft_calloc(size_t count, size_t size)
 	result = malloc(count * size);
 	if (result == NULL)
 		return (NULL);
-	ft_bzero(result, count * size);
+	ft_memset(result, '\0', count * size);
+	//ft_bzero(result, count * size);
 	return (result);
 }
+

@@ -7,10 +7,9 @@ la función read es gratis, gnl lee por bloques de BUFFER_SIZE y puede mandar to
 la reserva de memoria manda y organiza todo el código, sé lo que hay en el heap y en el stack en todo momento y no las mezclo (recuerdo que M(R(S)))
 
 
-algo de las funciones, estar d
-
 NO PASA ESTE TEST: en el sentido en que el read y la memoria no están sincronizadas cuando voy por el flujo a la izquierda (bueno ni en el primer paso tampoco)
 tips: meaningfull and efficient
+(este test es más de lo que me pide el ejercicio, pero claro, yo soy un pijo)
 
 ## BRAINSTORMING
 

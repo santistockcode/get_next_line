@@ -7,7 +7,7 @@ int main(void)
 {
   int    fd;
   char  *next_line;
-  int  count;
+  static int  count;
 
     count = 0;
     fd = open("../file-examples/1.txt", O_RDONLY);
