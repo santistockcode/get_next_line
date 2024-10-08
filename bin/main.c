@@ -10,7 +10,7 @@ int main(void)
   static int  count;
 
     count = 0;
-    fd = open("../file-examples/0.txt", O_RDONLY);
+    fd = open("../file-examples/spaces_after_1/0.txt", O_RDONLY);
     if (fd == -1)
     {
         printf("Error opening da thing");

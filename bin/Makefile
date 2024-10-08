@@ -1,7 +1,6 @@
 CC = gcc
 CFLAGS = -Werror -Wextra -Wall -g
 
-
 all: a.out
 	./a.out
 

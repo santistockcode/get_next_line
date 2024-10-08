@@ -13,17 +13,9 @@
 
 #   define MAX_FDS 1024 // chequear si esto es así
 
-// typedef struct {   
-//     int r_next_n; // position next \n
-//     int m_many; // how many allocations are there
-// } BufferInfo;
-
-
 void	*ft_calloc(size_t count, size_t size);
 char	*get_next_line(int fd);
-// void	ft_bzero(void *s, size_t n);
 void	*ft_memmove(void *dst, const void *src, size_t len);
-// void	*ft_memset(void *b, int c, size_t len);
 size_t	ft_strlen(const char *s);
 char	*ft_strchr(const char *s, int c);
 
