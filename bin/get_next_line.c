@@ -76,44 +76,31 @@ char *extract_line(char *from_this_bff)
 // 	b_info->m_many = 0;
 // }
 
-static char	*read_until_n(int fd, char *bff)
+static char	*read_one_line(int fd, char *sttc)
 {
 	int	bytes_read;
-	//BufferInfo b_info;
-	int 	r_next_n;
-	char 	*paso;
 	char *b_aux;
-	char *aux;
+	//char *aux;
+	size_t real_len;
 
-	//si no existe laa estática, la reservo
-	r_next_n = -1;
-	if (!bff)
-		paso = ft_calloc ( BUFFER_SIZE + 1, sizeof(char));
-	if (paso == NULL)
-		return (free (paso), NULL);
-	b_aux = paso;
-	if (*b_aux)
-		r_next_n = n_position(b_aux);
-
-	//b_info.m_many += 1;
+	if (!sttc)
+		sttc = ft_calloc ( BUFFER_SIZE + 1, sizeof(char));
+	if (sttc == NULL)
+		return (free (sttc), NULL);
+	b_aux = sttc;
 	bytes_read = 0;
-	
-	while (r_next_n <= 0)
+	while (!ft_strchr(sttc, '\n'))
 	{
-		bytes_read = read(fd, b_aux + ft_strlen(b_aux), BUFFER_SIZE);
-		if (bytes_read <= 0)
-			return (free (b_aux), NULL);
-		aux = b_aux + (int) ft_strlen(b_aux) - bytes_read;
-		aux[ft_strlen(b_aux)] = '\0';
-		r_next_n = n_position(b_aux);
-		// pprint(r_next_n, b_aux);
+		real_len = ft_strlen(sttc);
+		// y si llego a 21 y el buffer es 21 y me devuelve 0 quiero esa línea
+		bytes_read = read(fd, sttc + real_len, BUFFER_SIZE);
+		if (bytes_read < 0)
+			return (free (sttc), NULL);
+		sttc[real_len + bytes_read] = '\0';
+		//aux = sttc + (int) ft_strlen(sttc) - bytes_read;
+	//	aux[bytes_read] = '\0';
 	}
-	
-	paso = bff;
-	free(paso);
-
 	return b_aux;
-	
 }
 
 /*
@@ -123,17 +110,17 @@ This function does...
 char *get_next_line(int fd)
 {
 	char *line;
-	static char *j_bf;
+	static char *buffers[MAX_FDS];
 	// need da info of the read -> BETTER NAMING FUNCTIONS, not read_until_n but read_line
 	// TODO: no pillo como puede haber múltiples fd's
 	
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || fd >= MAX_FDS || BUFFER_SIZE <= 0)
         return (NULL);
-    j_bf = read_until_n(fd, j_bf);
-	if (!j_bf)
+    buffers[fd] = read_one_line(fd, buffers[fd]);
+	if (!buffers[fd])
         return (NULL);
-    line = extract_line(j_bf);
-	j_bf = move_bff(j_bf);
+    line = extract_line(buffers[fd]);
+	buffers[fd] = move_bff(buffers[fd]);
 	
 	return (line);
 }

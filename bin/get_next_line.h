@@ -11,6 +11,7 @@
 # include <unistd.h>
 #include <stdbool.h>
 
+#   define MAX_FDS 1024 // chequear si esto es así
 
 // typedef struct {   
 //     int r_next_n; // position next \n

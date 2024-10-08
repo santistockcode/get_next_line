@@ -10,7 +10,7 @@ int main(void)
   static int  count;
 
     count = 0;
-    fd = open("../file-examples/1.txt", O_RDONLY);
+    fd = open("../file-examples/0.txt", O_RDONLY);
     if (fd == -1)
     {
         printf("Error opening da thing");
@@ -22,7 +22,7 @@ int main(void)
         if (next_line == NULL)
             break ;
         count++;
-        printf("\n\n[%d]:%s\n\n", count, next_line); 
+        printf("\n\nmain[%d]:%s\n\n", count, next_line); 
         free(next_line);
         next_line = NULL;
     }
