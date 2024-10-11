@@ -181,24 +181,25 @@ static char	*read_one_line(int fd, char *sttc)
 {
 	int	bytes_read;
 	char *p;
-	size_t real_len;
+	char *temp;
 
-	// TODO: 
-	if (!sttc)
-		sttc = ft_calloc ( BUFFER_SIZE + 1, sizeof(char));
-	if (sttc == NULL)
-		return (free (sttc), NULL);
-	p = sttc;
+	p = ft_calloc ( BUFFER_SIZE + 1, sizeof(char));
+	if (!p)
+		return (free (p), NULL);
+	p[0] = '\0';
 	bytes_read = BUFFER_SIZE;
-	while (!ft_strchr(sttc, '\n')&& bytes_read == BUFFER_SIZE)
+	while (!ft_strchr(p, '\n')&& bytes_read == BUFFER_SIZE)
 	{
-		real_len = ft_strlen(sttc);
-		bytes_read = read(fd, sttc + real_len, BUFFER_SIZE);
+		bytes_read = read(fd, p, BUFFER_SIZE);
 		if (bytes_read < 0)
-			return (free (sttc), NULL);
-		sttc[real_len + bytes_read] = '\0';
+			return (free (p), NULL);
+		p[bytes_read] = 0;
+		temp = ft_strjoin(sttc, p);
+		free(sttc);
+		sttc = temp;
 	}
-	return p;
+	free(p);
+	return temp;
 }
 
 // v2
@@ -207,10 +208,9 @@ static char	*read_one_line(int fd, char *sttc)
 // 	int	bytes_read;
 // 	//char *p;
 // 	size_t real_len;
-// 	char temp[BUFFER_SIZE];
+// 	char *temp;
 // 	int total_b;
 
-// 	// TODO: 
 // 	temp[0] = '\0';
 // 	total_b = 0;
 // 	bytes_read = BUFFER_SIZE;

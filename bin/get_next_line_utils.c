@@ -22,7 +22,74 @@ char	*ft_strchr(const char *s, int c)
 	}
 }
 //ft_strjoin		********************************************************************************
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+{
+	size_t	lens;
+	size_t	count;
 
+	lens = (size_t) ft_strlen(src);
+	if (dstsize == 0)
+		return (lens);
+	count = 0;
+	while (count + 1 < dstsize && *src)
+	{
+		*dst++ = *src++;
+		count++;
+	}
+	if (*dst)
+	{
+		*dst = '\0';
+	}
+	
+	return (lens);
+}
+
+
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	char				*resstr;
+	unsigned int		s1len;
+	unsigned int		s2len;
+
+	s1len = 0;
+	s2len = 0;
+	if (s1)
+		s1len = ft_strlen(s1);
+	if (s2)
+		s2len = ft_strlen(s2);
+	resstr = (char *)malloc((s1len + s2len + 1) * sizeof(char));
+	if (resstr != NULL)
+	{
+		ft_strlcpy(resstr, s1, s1len + 1);
+		ft_strlcat(resstr, s2, s1len + s2len + 1);
+	}
+	else
+		return (NULL);
+	return (resstr);
+}
+
+size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
+{
+	size_t	srcl;
+	size_t	dstlen;
+	size_t	count;
+
+	dstlen = 0;
+	if (dst)
+		dstlen = ft_strlen (dst);
+	srcl = ft_strlen (src);
+	count = dstlen;
+	if (dstsize <= dstlen)
+		return (dstsize + srcl);
+	while ((count < (dstsize - 1)) && (*src))
+	{
+		*(dst + count) = *src;
+		count++;
+		src++;
+	}
+	*(dst + count) = '\0';
+	return (dstlen + srcl);
+}
 //ft_substr			********************************************************************************
 
 //ft_strdup			********************************************************************************
