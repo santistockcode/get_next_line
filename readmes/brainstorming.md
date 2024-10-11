@@ -1,15 +1,16 @@
-## TESTS 
+# TESTS
 
+## TEST function read_one_line
+
+- requisitos de organización del código
 la estática mantiene toda la info de un read y por h o por b sabrá al menos lo más básico de memoria (¿hay variables que liberar?)
-
 la función read es gratis, gnl lee por bloques de BUFFER_SIZE y puede mandar todo el flujo del programa (excepto la memoria, vamos) pero es la herramienta más importante
-
 la reserva de memoria manda y organiza todo el código, sé lo que hay en el heap y en el stack en todo momento y no las mezclo (recuerdo que M(R(S)))
-
-
-NO PASA ESTE TEST: en el sentido en que el read y la memoria no están sincronizadas cuando voy por el flujo a la izquierda (bueno ni en el primer paso tampoco)
-tips: meaningfull and efficient
-(este test es más de lo que me pide el ejercicio, pero claro, yo soy un pijo)
+-¿pasa el test con lldb?
+-¿pasa el test con valgrind?
+-¿pasa el test con address-sanitizer?
+-¿está limpio el test?
+-¿puedo explicar y ejemplificar como pasa el test?
 
 ## BRAINSTORMING
 
