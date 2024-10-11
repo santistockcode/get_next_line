@@ -1,2 +1,2 @@
 esta es la linea 1
-esta es la linea 2
+this is the line 2

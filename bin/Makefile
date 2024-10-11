@@ -1,6 +1,8 @@
 CC = gcc
 CFLAGS = -Werror -Wextra -Wall -g
 
+BUFFER_SIZE ?= 3
+
 all: a.out
 	./a.out
 
@@ -14,7 +16,7 @@ debug: a.out
 # run
 
 a.out: $(wildcard *.c)
-	$(CC) $(CFLAGS) $^ -o $@
+	$(CC) $(CFLAGS) -D BUFFER_SIZE=$(BUFFER_SIZE) $^ -o $@
 
 .PHONY: clean
 clean:
