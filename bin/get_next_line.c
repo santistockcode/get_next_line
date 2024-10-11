@@ -62,30 +62,51 @@ This function evaluates if buffer has '\n' or doesn't.
 Then act based on that info.
 */
 
+// char *move_bff(char *bff)
+// {
+// 	int counter_calloc;
+// 	int bff_length;
+	
+// 	bff_length = ft_strlen(bff);
+// 	if (ft_strchr(bff, '\n'))
+// 	{
+// 		ft_memmove(bff, ft_strchr(bff, '\n') + 1, ft_strlen(bff) - ft_strlen(ft_strchr(bff, '\n')) - 1);
+// 		counter_calloc = ft_strlen(bff) - ft_strlen(ft_strchr(bff, '\n'));
+// 	}
+// 	else 
+// 	{
+// 		counter_calloc = 0;
+// 	}
+// 	while (counter_calloc < (int) bff_length)
+// 	{
+// 		bff[counter_calloc] = '\0';
+// 		counter_calloc++;
+// 	}
+
+// 	return (bff);
+
+// }
+
 char *move_bff(char *bff)
 {
-	int counter_calloc;
-	int bff_length;
-	
-	bff_length = ft_strlen(bff);
+	int fin_bff_length;
+	// char *return_buffer;
+
+
 	if (ft_strchr(bff, '\n'))
 	{
-		ft_memmove(bff, ft_strchr(bff, '\n') + 1, ft_strlen(bff) - ft_strlen(ft_strchr(bff, '\n')) - 1);
-		counter_calloc = ft_strlen(bff) - ft_strlen(ft_strchr(bff, '\n'));
+		fin_bff_length = ft_strlen(ft_strchr(bff, '\n'));
+		ft_memmove(bff, ft_strchr(bff, '\n') + 1, fin_bff_length);
+		bff[fin_bff_length] = 0;
 	}
-	else 
+	else
 	{
-		counter_calloc = 0;
-	}
-	while (counter_calloc < (int) bff_length)
-	{
-		bff[counter_calloc] = '\0';
-		counter_calloc++;
+		*bff = 0;
 	}
 
 	return (bff);
-
 }
+	
 
 
 // char *extract_line(char *from_this_bff)
@@ -117,12 +138,13 @@ char *extract_line(char *buffer)
 	}
 	if (ft_strchr(buffer, '\n'))
 	{
-		line = malloc(strlen_n(buffer) + 1);
+		line = malloc(strlen_n(buffer) + 2);
 		if (!line) {
 			free (buffer);
 			return (free (line), NULL);
 		}
 		ft_memmove(line, buffer, strlen_n(buffer) + 1);
+		line[strlen_n(buffer) + 1] = 0;
 	}
 	else
 	{
@@ -176,6 +198,8 @@ again and again from fd into that static variable
 until finding n character. Then returns a pointer 
 to the start of the static variable.  
 */
+
+// TODO: resulta que vuelve a leer aunque ya había un '\n' ¿is this my problem?
 
 static char	*read_one_line(int fd, char *sttc)
 {
