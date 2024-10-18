@@ -3,29 +3,6 @@
 # include <string.h>
 # include "get_next_line.h"
 
-
-//PRINT FUNCTIONS 	********************************************************************************
-// void    print_newline_helper(char *buffer)
-// {
-//     while (*buffer &&  *buffer != '\0')
-//     {
-//         if (*buffer == '\n') 
-//         {
-//             *buffer= 'N';
-//         }
-//         printf("%c",*buffer);
-//         buffer++;
-//     }
-// }
-void pprint(int r_next_n, char *buffer)
-{
-	printf("\n");
-	printf("BUFFER	: %s \n", buffer);
-	//print_newline_helper(buffer);
-	printf("\n");
-	printf("Next n at pos	: %d\n", r_next_n);
-}
-
 int strlen_n(char *b_aux) // isn't this just strchr + int return
 {
 	char *aux;
@@ -87,7 +64,7 @@ Then act based on that info.
 
 // }
 
-char *move_bff(char *bff)
+char *update_buffer(char *bff)
 {
 	int fin_bff_length;
 	// char *return_buffer;
@@ -108,24 +85,13 @@ char *move_bff(char *bff)
 }
 	
 
-
-// char *extract_line(char *from_this_bff)
-// {
-// 	char *line;
-
-// 	line = malloc(n_position(from_this_bff) + 1); 
-// 	if (!line) {
-// 		free (from_this_bff);
-// 		return (free (line), NULL);
-// 	}
-// 	ft_memmove(line, from_this_bff, n_position(from_this_bff) + 1);
-// 	return (line);
-// }
-
 /*
 This functions evaluates if buffer is empty, has '\n' or doesn't and
 move a line based on those evalutaions
 */
+
+// TODO: asegurarme de que devuelve NULL en caso de error
+
 
 char *extract_line(char *buffer)
 {
@@ -197,11 +163,14 @@ allocated and allocates memory if not. Then reads
 again and again from fd into that static variable 
 until finding n character. Then returns a pointer 
 to the start of the static variable.  
+Returns NULL in case of error
 */
 
 // TODO: resulta que vuelve a leer aunque ya había un '\n' ¿is this my problem?
+// TODO: asegurarme de que devuelve NULL en caso de error
+// TODO: p[0] = '\0' tiene sentido tras un calloc?
 
-static char	*read_one_line(int fd, char *sttc)
+static char	*read_one_line(int fd, char *left)
 {
 	int	bytes_read;
 	char *p;
@@ -210,7 +179,7 @@ static char	*read_one_line(int fd, char *sttc)
 	p = ft_calloc ( BUFFER_SIZE + 1, sizeof(char));
 	if (!p)
 		return (free (p), NULL);
-	p[0] = '\0';
+	//p[0] = '\0';
 	bytes_read = BUFFER_SIZE;
 	while (!ft_strchr(p, '\n')&& bytes_read == BUFFER_SIZE)
 	{
@@ -218,76 +187,45 @@ static char	*read_one_line(int fd, char *sttc)
 		if (bytes_read < 0)
 			return (free (p), NULL);
 		p[bytes_read] = 0;
-		temp = ft_strjoin(sttc, p);
-		free(sttc);
-		sttc = temp;
+		temp = ft_strjoin(left, p);
+		free(left);
+		left = temp;
 	}
 	free(p);
+	p = NULL;
 	return temp;
 }
 
-// v2
-// static char	*read_one_line(int fd, char *sttc)
-// {
-// 	int	bytes_read;
-// 	//char *p;
-// 	size_t real_len;
-// 	char *temp;
-// 	int total_b;
-
-// 	temp[0] = '\0';
-// 	total_b = 0;
-// 	bytes_read = BUFFER_SIZE;
-// 	while (!ft_strchr(temp, '\n')&& bytes_read == BUFFER_SIZE)
-// 	{
-// 		real_len = ft_strlen(temp);
-// 		bytes_read = read(fd, temp + real_len, BUFFER_SIZE);
-// 		if (bytes_read < 0)
-// 			return (free (sttc), NULL);
-// 		temp[real_len + bytes_read] = '\0';
-// 		total_b += bytes_read;
-// 	}
-// 	if (!sttc)
-// 		sttc = ft_calloc ( total_b + 1, sizeof(char));
-// 	ft_memmove(sttc, temp, total_b);
-// 	if (sttc == NULL)
-// 		return (free (sttc), NULL);
-// 	return sttc;
-// }
 
 /*
-This function does...
+This get_next_line function reads the next line from a given file descriptor fd. 
+It maintains a static array buffers to keep track of residual data for each file descriptor, 
+allowing it to handle multiple file descriptors simultaneously.
 */
 
 char *get_next_line(int fd)
 {
 	char *line;
 	static char *buffers[MAX_FDS];
-	// need da info of the read -> BETTER NAMING FUNCTIONS, not read_until_n but read_line
-	// TODO: no pillo como puede haber múltiples fd's
 	
 	if (fd < 0 || fd >= MAX_FDS || BUFFER_SIZE <= 0)
         return (NULL);
     buffers[fd] = read_one_line(fd, buffers[fd]);
-	if (*(buffers[fd]) == '\0')
+	if (!(buffers[fd]) || *(buffers[fd]) == '\0')
 	{
 		free(buffers[fd]);
+		buffers[fd] = NULL;
         return (NULL);
 	}
     line = extract_line(buffers[fd]);
-	if (*line == '\0')
+	if (!line || *line == '\0')
 	{
 		free(line);
+		line = NULL;
 		return (NULL);
 	}
-	
-	// if (!ft_strchr(line, '\n'))
-	// {
-	// 	buffers[fd] = NULL;
-	// 	free(buffers[fd]);
-	// }
 	else
-		buffers[fd] = move_bff(buffers[fd]);
+		buffers[fd] = update_buffer(buffers[fd]);
 	
 	return (line);
 }

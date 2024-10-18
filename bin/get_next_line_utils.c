@@ -45,28 +45,52 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 }
 
 
-char	*ft_strjoin(char const *s1, char const *s2)
-{
-	char				*resstr;
-	unsigned int		s1len;
-	unsigned int		s2len;
+// char	*ft_strjoin(char const *s1, char const *s2)
+// {
+// 	char				*resstr;
+// 	unsigned int		s1len;
+// 	unsigned int		s2len;
 
-	s1len = 0;
-	s2len = 0;
-	if (s1)
-		s1len = ft_strlen(s1);
-	if (s2)
-		s2len = ft_strlen(s2);
-	resstr = (char *)malloc((s1len + s2len + 1) * sizeof(char));
-	if (resstr != NULL)
-	{
-		ft_strlcpy(resstr, s1, s1len + 1);
-		ft_strlcat(resstr, s2, s1len + s2len + 1);
-	}
-	else
+// 	s1len = 0;
+// 	s2len = 0;
+// 	if (s1)
+// 		s1len = ft_strlen(s1);
+// 	if (s2)
+// 		s2len = ft_strlen(s2);
+// 	resstr = (char *)malloc((s1len + s2len + 1) * sizeof(char));
+// 	if (resstr != NULL)
+// 	{
+// 		ft_strlcpy(resstr, s1, s1len + 1);
+// 		ft_strlcat(resstr, s2, s1len + s2len + 1);
+// 	}
+// 	else
+// 		return (NULL);
+// 	return (resstr);
+// }
+
+char *ft_strjoin(char const *str1, char const *str2)
+{
+	char *r_join;
+	int i;
+
+	i = 0;
+	if (str1 == NULL && str2 == NULL)
 		return (NULL);
-	return (resstr);
+	r_join = (char *)malloc((ft_strlen(str1) + ft_strlen(str2) + 1) * sizeof(char));
+	if (r_join == NULL)
+		return (NULL);
+	if (str1)
+	{
+		while (*str1)
+			r_join[i++] = *str1++;
+	
+	}
+	while (*str2)
+		r_join[i++] = *str2++;
+	r_join[i] = '\0';
+	return (r_join); 
 }
+
 
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 {

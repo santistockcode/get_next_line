@@ -2,6 +2,26 @@
 #include <stdio.h>
 #include <fcntl.h>
 
+// int main(void)
+// {
+//     char    *next_line;
+//     int     count;
+
+//     count = 0;
+//     printf("Please enter text (Ctrl+D to end input):\n");
+
+//     while (1)
+//     {
+//         next_line = get_next_line(STDIN_FILENO);
+//         if (next_line == NULL)
+//             break ;
+//         count++;
+//         printf("Line %d: %s", count, next_line);
+//         free(next_line);
+//     }
+//     printf("\nEnd of input reached.\n");
+//     return (0);
+// }
 
 int main(void)
 {
@@ -10,7 +30,7 @@ int main(void)
   static int  count;
 
     count = 0;
-    fd = open("../file-examples/spaces_after_1/6.txt", O_RDONLY);
+    fd = open("../file-examples/spaces_after_1/1.txt", O_RDONLY);
     if (fd == -1)
     {
         printf("Error opening da thing");
@@ -28,6 +48,6 @@ int main(void)
         free(next_line);
     }
     close(fd);
-    printf("HELLO");
+    printf("CONGRATS, FILE WAS READED");
     return (0);
 }

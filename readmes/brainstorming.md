@@ -11,6 +11,7 @@ la reserva de memoria manda y organiza todo el código, sé lo que hay en el hea
 -¿pasa el test con address-sanitizer?
 -¿está limpio el test?
 -¿puedo explicar y ejemplificar como pasa el test?
+-¿pasa norminette?
 
 ## BRAINSTORMING
 
