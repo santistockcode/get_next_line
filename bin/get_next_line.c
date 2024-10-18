@@ -3,7 +3,7 @@
 # include <string.h>
 # include "get_next_line.h"
 
-int strlen_n(char *b_aux) // isn't this just strchr + int return
+int strlen_n(char *b_aux) 
 {
 	char *aux;
 	int n_pos;
@@ -18,57 +18,14 @@ int strlen_n(char *b_aux) // isn't this just strchr + int return
 	return (-1);
 }
 
-// char *move_bff(char *bff)
-// {
-// 	int counter_calloc; 
-
-// 	ft_memmove(bff, bff + n_position(bff) + 1, ft_strlen(bff) - n_position(bff) - 1);
-	
-// 	counter_calloc = ft_strlen(bff) - n_position(bff) - 1;
-// 	while (counter_calloc < (int) ft_strlen(bff))
-// 	{
-// 		bff[counter_calloc] = '\0';
-// 		counter_calloc++;
-// 	}
-
-// 	return (bff);
-// }
-
 /*
 This function evaluates if buffer has '\n' or doesn't. 
 Then act based on that info.
 */
 
-// char *move_bff(char *bff)
-// {
-// 	int counter_calloc;
-// 	int bff_length;
-	
-// 	bff_length = ft_strlen(bff);
-// 	if (ft_strchr(bff, '\n'))
-// 	{
-// 		ft_memmove(bff, ft_strchr(bff, '\n') + 1, ft_strlen(bff) - ft_strlen(ft_strchr(bff, '\n')) - 1);
-// 		counter_calloc = ft_strlen(bff) - ft_strlen(ft_strchr(bff, '\n'));
-// 	}
-// 	else 
-// 	{
-// 		counter_calloc = 0;
-// 	}
-// 	while (counter_calloc < (int) bff_length)
-// 	{
-// 		bff[counter_calloc] = '\0';
-// 		counter_calloc++;
-// 	}
-
-// 	return (bff);
-
-// }
-
 char *update_buffer(char *bff)
 {
 	int fin_bff_length;
-	// char *return_buffer;
-
 
 	if (ft_strchr(bff, '\n'))
 	{
@@ -91,7 +48,6 @@ move a line based on those evalutaions
 */
 
 // TODO: asegurarme de que devuelve NULL en caso de error
-
 
 char *extract_line(char *buffer)
 {
@@ -120,42 +76,6 @@ char *extract_line(char *buffer)
 	return (line);
 
 }
-
-// char *extract_line(char *bfr)
-// {
-// 	char *line;
-// 	char *classy;
-// 	int flag;
-
-// 	line = malloc(ft_strlen(ft_strchr(bfr, '\n')) + 1);
-// 	flag = 0;
-// 	if (!line)
-// 	{
-// 		bfr = NULL;
-// 		free (bfr);
-// 		return (free (line), NULL);
-// 	}
-// 	if (ft_strchr(bfr, '\n'))
-// 	{
-// 		classy = ft_strchr(bfr, '\n');
-// 		*classy = '\0';
-// 		flag = 1;
-// 	}
-// 	ft_memmove(line, bfr, ft_strlen(bfr) + 1);
-	
-// 	if (flag)
-// 	{
-// 		line[ft_strlen(bfr)] = '\n';
-// 		*classy = '\n';
-// 	}
-// 	return (line);
-// }
-
-// void initialize_b_info(BufferInfo *b_info)
-// {
-// 	b_info->r_next_n = -1;
-// 	b_info->m_many = 0;
-// }
 
 /*
 This function checks if static is already
@@ -226,6 +146,6 @@ char *get_next_line(int fd)
 	}
 	else
 		buffers[fd] = update_buffer(buffers[fd]);
-	
+
 	return (line);
 }

@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -Werror -Wextra -Wall -g 
 
-BUFFER_SIZE ?= 1
+BUFFER_SIZE ?= 10
 
 all: a.out
 	./a.out
