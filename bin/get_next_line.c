@@ -98,8 +98,11 @@ static char	*read_one_line(int fd, char *left)
 
 	p = ft_calloc ( BUFFER_SIZE + 1, sizeof(char));
 	if (!p)
-		return (free (p), NULL);
-	//p[0] = '\0';
+	{
+		    free(p);
+            free(left);
+            return (NULL);
+	}
 	bytes_read = BUFFER_SIZE;
 	while (!ft_strchr(p, '\n')&& bytes_read == BUFFER_SIZE)
 	{
