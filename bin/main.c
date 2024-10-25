@@ -55,7 +55,7 @@
 // }
 
 // MAIN GET ONE LINE
-// TODO: ¿si solo leo una línea y no más porque por ejemplo DA ERROR, es correcto que no cuadre allocs y frees??? 
+// TODO: ¿si solo leo una línea y no más porque por ejemplo DA ERROR, cuadran mallocs y frees?
 int main(void)
 {
   int    fd;

@@ -1,5 +1,17 @@
-#ifndef GNL_H
-# define GNL_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: saalarco <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/25 19:38:03 by saalarco          #+#    #+#             */
+/*   Updated: 2024/10/25 19:40:37 by saalarco         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 3
@@ -9,17 +21,17 @@
 # include <stdlib.h>
 # include <limits.h>
 # include <unistd.h>
-#include <stdbool.h>
+# include <stdbool.h>
 
-#   define MAX_FDS 1024 // chequear si esto es así
+# define MAX_FDS 1024 
+// TODO: chequear si esto es así
+// TODO: pasa los test sin bonus?
 
-void	*ft_calloc(size_t count, size_t size);
 char	*get_next_line(int fd);
+void	*ft_calloc(size_t count, size_t size);
 void	*ft_memmove(void *dst, const void *src, size_t len);
 size_t	ft_strlen(const char *s);
-char	*ft_strchr(const char *s, int c);
 char	*ft_strjoin(char const *s1, char const *s2);
-size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
-
+char	*ft_strchr(const char *s, int c);
 
 #endif

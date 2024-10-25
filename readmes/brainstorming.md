@@ -28,3 +28,15 @@ identifico 3 funcionalidades: la de manejo de memoria, capa del read, capa de st
 CONCLUSIÓN: 
 la estática le tiene que dar igual la string que está manejando del read, el read que sea que venga de donde quiera
 al read le tiene que dar igual los punteros que esté manejando, el manejo de memoria que venga de donde sea que yo ya sé (si hay hueco, si hay cosas, si termina en 0, sé todo de ese puntero)
+
+## DUDA
+colección de ideas o bibliografía C
+libro (su título, link a C y en mis propias palabras referenciando el tema (que irá a la otra página))
+otra página: *principios-solid* (aquí va en mis propias palabras)
+cita
+en mis propias palabras
+
+1 limpiar dudas no relevantes o imposibles
+2 deducir desde principios-solid
+3 linkear a bajo nivel lo que pueda
+4 ¿qué dudas son interneteables y en qué plataformas? 
