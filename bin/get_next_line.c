@@ -6,7 +6,7 @@
 /*   By: saalarco <saalarco@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 19:29:53 by saalarco          #+#    #+#             */
-/*   Updated: 2024/10/25 19:51:11 by saalarco         ###   ########.fr       */
+/*   Updated: 2024/10/29 19:37:27 by saalarco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ char	*extract_line(char *buffer)
 		if (!line)
 		{
 			free(buffer);
-			return (free(line), NULL);
+			return (free(line), buffer = NULL, line = NULL, NULL);
 		}
 		ft_memmove(line, buffer, strlen_n(buffer) + 1);
 		line[strlen_n(buffer) + 1] = 0;
@@ -119,7 +119,7 @@ static char	*read_one_line(int fd, char *left)
 		{
 			free(p);
 			free(left);
-			return (NULL);
+			return (p = NULL, left = NULL, NULL);
 		}
 		p[bytes_read] = 0;
 		temp = ft_strjoin(left, p);
