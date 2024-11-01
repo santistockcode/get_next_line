@@ -23,9 +23,7 @@
 # include <unistd.h>
 # include <stdbool.h>
 
-# define MAX_FDS 1024 
-// TODO: chequear si esto es así
-// TODO: pasa los test sin bonus?
+# define MAX_FDS 1024
 
 char	*get_next_line(int fd);
 void	*ft_calloc(size_t count, size_t size);

@@ -12,7 +12,7 @@
 
 #include "get_next_line.h"
 
-// ft_strchr
+// ft_strchr from libft
 char	*ft_strchr(const char *s, int c)
 {
 	char	paso;
@@ -34,7 +34,7 @@ char	*ft_strchr(const char *s, int c)
 	}
 }
 
-// ft_strjoin
+// ft_strjoin from libft but checking NULL str1 str2
 char	*ft_strjoin(char const *str1, char const *str2)
 {
 	char	*r_join;
@@ -58,7 +58,7 @@ char	*ft_strjoin(char const *str1, char const *str2)
 	return (r_join);
 }
 
-// ft_strlen
+// ft_strlen but checks for !s
 size_t	ft_strlen(const char *s)
 {
 	size_t	c;
@@ -71,22 +71,25 @@ size_t	ft_strlen(const char *s)
 	return (c);
 }
 
-// ft_memmove
-// TODO: nombres de variables mejores
-void	*ft_memmove(void *dst, const void *src, size_t len)
+/*
+This function is like strcpy but with memory 
+so we differenciate copy left vs copy right since they might overlap
+i is for index
+*/
+void	*ft_memmove(void *destination, const void *source, size_t len)
 {
-	char	*s;
-	char	*d;
+	char	*src;
+	char	*dest;
 	size_t	i;
 
-	s = (char *)src;
-	d = (char *)dst;
+	src = (char *)source;
+	dest = (char *)destination;
 	i = 0;
-	if (d > s)
+	if (dest > src)
 	{
 		while (len > 0)
 		{
-			d[len - 1] = s[len - 1];
+			dest[len - 1] = src[len - 1];
 			len--;
 		}
 	}
@@ -94,14 +97,14 @@ void	*ft_memmove(void *dst, const void *src, size_t len)
 	{
 		while (i < len)
 		{
-			d[i] = s[i];
+			dest[i] = src[i];
 			i++;
 		}
 	}
-	return (dst);
+	return (destination);
 }
 
-// MEMESET + CALLOC
+// calloc from libft
 void	*ft_calloc(size_t count, size_t size)
 {
 	void	*result;

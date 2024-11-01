@@ -16,31 +16,32 @@
 #include <unistd.h>
 
 /*
+Function used by extract line function.
 This function measures string from start to n character;
-returns -1 in case of error but this it's not used in the project
+returns -1 in case of error but this it's not used in the project.
 */
 
 int	strlen_n(char *b_aux)
 {
-	char	*aux;
 	int		n_pos;
 
 	n_pos = 0;
-	aux = b_aux;
-	while ((aux[n_pos] != '\n'))
+	if(!b_aux)
+		return (-1);
+	while (b_aux[n_pos] && b_aux[n_pos] != '\n')
 	{
 		n_pos++;
 	}
-	if (aux[n_pos] == '\n')
+	if (b_aux[n_pos] == '\n')
 		return (n_pos);
 	return (-1);
 }
 
 /*
 This function evaluates if buffer has '\n' or doesn't.
-Then act based on that info.
+Then act based on that info. If no n character, clears the buffer
+(*bff = 0). ft_strchr returns NULL if buffer is NULL. 
 */
-// TODO: tiene más sentido return NULL? ¿por qué igualo *bff a 0?
 
 char	*update_buffer(char *bff)
 {
@@ -61,10 +62,14 @@ char	*update_buffer(char *bff)
 
 /*
 This functions evaluates if buffer is empty, has '\n' or doesn't and
-move a line based on those evalutaions
+move a line based on those evalutaions.
+Example: line = ABn where n is n character
+strnlen_n = 2;
+malloc 2(strnlen_n) + 2 (_ _ _ _)
+ft_memmove for 2 + 1 (a b n _)
+line[(strnlen_n) + 1](a b n 0)
+final line: (a b n 0)
 */
-
-// TODO: asegurarme de que devuelve NULL en caso de error
 
 char	*extract_line(char *buffer)
 {
@@ -83,7 +88,7 @@ char	*extract_line(char *buffer)
 			return (free(line), buffer = NULL, line = NULL, NULL);
 		}
 		ft_memmove(line, buffer, strlen_n(buffer) + 1);
-		line[strlen_n(buffer) + 1] = 0;
+		line[strlen_n(buffer) + 1] = '\0';
 	}
 	else
 	{
@@ -99,39 +104,42 @@ allocated and allocates memory if not. Then reads
 again and again from fd into that static variable
 until finding n character. Then returns a pointer
 to the start of the static variable.
-Returns NULL in case of error
+Returns NULL in case of error.
+¿why use temp: 
+Memory Leak Risk: The original memory pointed to by left is not freed by strjoin. 
+After the assignment, 
+left points to the new concatenated string, 
+and the original memory is lost (a memory leak occurs).
 */
 
-// TODO: resulta que vuelve a leer aunque ya había un '\n' ¿is this my problem?
-// TODO: asegurarme de que devuelve NULL en caso de error
 
 static char	*read_one_line(int fd, char *left)
 {
 	int		bytes_read;
-	char	*p;
+	char	*buff;
 	char	*temp;
 
-	p = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
-	if (!p)
-		return (free (p), NULL);
-	bytes_read = BUFFER_SIZE;
-	while (!ft_strchr(p, '\n') && bytes_read == BUFFER_SIZE)
+	buff = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
+	if (!buff)
+		return (free (buff), NULL);
+	bytes_read = 1;
+	while (!ft_strchr(buff, '\n') && bytes_read > 0)
 	{
-		bytes_read = read(fd, p, BUFFER_SIZE);
+		bytes_read = read(fd, buff, BUFFER_SIZE);
 		if (bytes_read < 0)
 		{
-			free(p);
+			free(buff);
 			free(left);
-			return (p = NULL, left = NULL, NULL);
+			return (buff = NULL, left = NULL, NULL);
 		}
-		p[bytes_read] = 0;
-		temp = ft_strjoin(left, p);
+		buff[bytes_read] = 0;
+		temp = ft_strjoin(left, buff);
 		free(left);
 		left = temp;
 	}
-	free(p);
-	p = NULL;
-	return (temp);
+	free(buff);
+	buff = NULL;
+	return (left);
 }
 
 /*

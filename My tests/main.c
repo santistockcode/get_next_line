@@ -55,7 +55,6 @@
 // }
 
 // MAIN GET ONE LINE
-// TODO: ¿si solo leo una línea y no más porque por ejemplo DA ERROR, cuadran mallocs y frees?
 int main(void)
 {
   int    fd;
