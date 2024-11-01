@@ -6,7 +6,7 @@
 /*   By: saalarco <saalarco@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 19:29:53 by saalarco          #+#    #+#             */
-/*   Updated: 2024/10/29 19:37:27 by saalarco         ###   ########.fr       */
+/*   Updated: 2024/11/01 11:33:04 by saalarco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,10 @@
 #include <string.h>
 #include <unistd.h>
 
-// TODO: puedo explicar ese retorno de -1? qué pasa si lo quito y devuelvo 0?
+/*
+This function measures string from start to n character;
+returns -1 in case of error but this it's not used in the project
+*/
 
 int	strlen_n(char *b_aux)
 {

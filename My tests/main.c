@@ -78,5 +78,3 @@ int main(void)
     printf("GO CHECK VALGRIND");
     return (0);
 }
-
-// /home/codespace/francinette/tester.sh
