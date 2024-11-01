@@ -6,7 +6,7 @@
 /*   By: saalarco <saalarco@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 19:29:53 by saalarco          #+#    #+#             */
-/*   Updated: 2024/11/01 11:33:04 by saalarco         ###   ########.fr       */
+/*   Updated: 2024/11/01 12:25:45 by saalarco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	strlen_n(char *b_aux)
 	int		n_pos;
 
 	n_pos = 0;
-	if(!b_aux)
+	if (!b_aux)
 		return (-1);
 	while (b_aux[n_pos] && b_aux[n_pos] != '\n')
 	{
@@ -106,12 +106,12 @@ until finding n character. Then returns a pointer
 to the start of the static variable.
 Returns NULL in case of error.
 ¿why use temp: 
-Memory Leak Risk: The original memory pointed to by left is not freed by strjoin. 
+Memory Leak Risk: 
+The original memory pointed to by left is not freed by strjoin. 
 After the assignment, 
 left points to the new concatenated string, 
 and the original memory is lost (a memory leak occurs).
 */
-
 
 static char	*read_one_line(int fd, char *left)
 {
