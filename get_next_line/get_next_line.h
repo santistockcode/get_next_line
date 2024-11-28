@@ -6,7 +6,7 @@
 /*   By: saalarco <saalarco@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 19:38:03 by saalarco          #+#    #+#             */
-/*   Updated: 2024/10/29 19:34:47 by saalarco         ###   ########.fr       */
+/*   Updated: 2024/11/28 19:35:03 by saalarco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,10 @@
 #  define BUFFER_SIZE 3
 # endif
 
-# include <stddef.h>
 # include <stdlib.h>
 # include <limits.h>
 # include <unistd.h>
-# include <stdbool.h>
+# include <stdio.h>
 
 # define MAX_FDS 1024
 

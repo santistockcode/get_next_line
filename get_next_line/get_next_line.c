@@ -6,14 +6,11 @@
 /*   By: saalarco <saalarco@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 19:29:53 by saalarco          #+#    #+#             */
-/*   Updated: 2024/11/01 12:25:45 by saalarco         ###   ########.fr       */
+/*   Updated: 2024/11/28 19:35:39 by saalarco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
-#include <string.h>
-#include <unistd.h>
 
 /*
 Function used by extract line function.
